@@ -33,6 +33,7 @@ class App extends React.Component {
           <Button incrementValue={5} onClickFunction={this.incrementCounter}/>
           <Button incrementValue={10} onClickFunction={this.incrementCounter}/>
           <Button incrementValue={200} onClickFunction={this.incrementCounter}/>
+          <Button incrementValue={69} onClickFunction={this.incrementCounter}/>
           <Result counter={this.state.counter}/>
         </div>
       );
