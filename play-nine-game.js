@@ -9,11 +9,31 @@ const Stars = (props) => {
 }
 
 const Button = (props) => {
+	let button;
+  switch(props.answerIsCorrect){
+  	case true:
+      button = 
+        <button className="btn btn-success">
+        	<i className="fa fa-check"></i>
+        </button>
+  		break;
+    case false:
+      button = 
+        <button className="btn btn-danger">
+        	<i className="fa fa-times"></i>
+        </button>
+  		break;
+    default:
+    	button = 
+        <button className="btn"
+        		onClick={props.checkAnswer}>
+       	 =
+        </button>
+  		break;
+  }
 	return(
   	<div className="col-2">
-    	<button className="btn">
-      =
-      </button>
+			{button}
     </div>
   );
 }
@@ -55,7 +75,7 @@ class Game extends React.Component {
 	state = {
   	selectedNumbers: [],
 		randomNumberOfStars: 1  + Math.floor(Math.random()*9),
-
+		answerIsCorrect: null,
   };
 	
   selectNumber = (clickedNumber) => {
@@ -72,15 +92,29 @@ class Game extends React.Component {
     }))
   }
 
+	checkAnswer = () => {
+  	this.setState(prevState => ({
+    	answerIsCorrect: prevState.randomNumberOfStars ===
+      	prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
+    
+    }));
+  };
+
 	render() {
-  	const { selectedNumbers, randomNumberOfStars } = this.state;
+  	const { 
+    selectedNumbers, 
+    randomNumberOfStars, 
+    answerIsCorrect,
+    } = this.state;
   	return (
     	<div className="container">
       	<h3>Play Nine</h3>
         	<hr />
         	<div className="row">
             <Stars numberOfStars={randomNumberOfStars}/>
-            <Button />
+            <Button selectedNumbers={selectedNumbers}
+            				checkAnswer={this.checkAnswer}
+                    answerIsCorrect={answerIsCorrect}/>
             <Answer selectedNumbers={selectedNumbers}
             				unselectNumber={this.unselectNumber}/>
         	</div>
