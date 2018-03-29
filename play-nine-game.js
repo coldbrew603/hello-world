@@ -1,4 +1,4 @@
-//run this at https://jscomplete.com/repl/
+//run this at https://jscomplete.com/repl/ SAM
 
 var possibleCombinationSum = function(arr, n) {
   if (arr.indexOf(n) >= 0) { return true; }
