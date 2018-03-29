@@ -1,5 +1,3 @@
-//Run in https://jscomplete.com/repl/
-
 var possibleCombinationSum = function(arr, n) {
   if (arr.indexOf(n) >= 0) { return true; }
   if (arr[0] > n) { return false; }
@@ -35,20 +33,21 @@ const Button = (props) => {
       button = 
         <button className="btn btn-success" onClick={props.acceptAnswer}>
         	<i className="fa fa-check"></i>
-        </button>
+        </button>;
   		break;
     case false:
       button = 
         <button className="btn btn-danger">
         	<i className="fa fa-times"></i>
-        </button>
+        </button>;
   		break;
     default:
     	button = 
         <button className="btn"
-        		onClick={props.checkAnswer}>
+        		onClick={props.checkAnswer}
+            disabled={props.selectedNumbers.length === 0}>
        	 <i className="fas fa-question"></i>
-        </button>
+        </button>;
   		break;
   }
 	return(
@@ -67,7 +66,7 @@ const Answer = (props) => {
 	return(
   	<div className="col-5">
     	{props.selectedNumbers.map((number, i) =>
-      	<span key={1} onClick={() => props.unselectNumber(number)}>
+      	<span key={i} onClick={() => props.unselectNumber(number)}>
         	{number}
         </span>
       )}
@@ -138,7 +137,6 @@ class Game extends React.Component {
   	this.setState(prevState => ({
     	answerIsCorrect: prevState.randomNumberOfStars ===
       	prevState.selectedNumbers.reduce((acc, n) => acc + n, 0)
-    
     }));
   };
   
@@ -162,8 +160,8 @@ class Game extends React.Component {
   };
   
   possibleSolutions = ({randomNumberOfStars, usedNumbers}) => {
-  	const possibleNumers = _.range(1,10).filter(number =>
-    	usedNumbers.indefOf(number) === -1
+  	const possibleNumbers = _.range(1,10).filter(number =>
+    	usedNumbers.indexOf(number) === -1
     );
     return possibleCombinationSum(possibleNumbers, randomNumberOfStars);
   };
@@ -190,16 +188,16 @@ class Game extends React.Component {
     } = this.state;
   	return (
     	<div className="container">
-      	<h3>Play Nine</h3>
+      	<h3>Gucci Button Game</h3>
         	<hr />
         	<div className="row">
             <Stars numberOfStars={randomNumberOfStars}/>
             <Button selectedNumbers={selectedNumbers}
             				redraws={redraws}
             				checkAnswer={this.checkAnswer}
-                    answerIsCorrect={answerIsCorrect}
                     acceptAnswer={this.acceptAnswer}
-                    redraw={this.redraw}/>
+                    redraw={this.redraw}
+                    answerIsCorrect={answerIsCorrect}/>
             <Answer selectedNumbers={selectedNumbers}
             				unselectNumber={this.unselectNumber}/>
         	</div>
