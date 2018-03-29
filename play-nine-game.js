@@ -1,3 +1,5 @@
+//run this at https://jscomplete.com/repl/
+
 var possibleCombinationSum = function(arr, n) {
   if (arr.indexOf(n) >= 0) { return true; }
   if (arr[0] > n) { return false; }
@@ -20,7 +22,7 @@ const Stars = (props) => {
 	return(
   	<div className="col-5">
 			{_.range(props.numberOfStars).map(i =>
-				<i key={1} class="fab fa-apple"></i>
+				<i key={i} class="fab fa-apple"></i>
 		)}
     </div>
   );
@@ -146,7 +148,7 @@ class Game extends React.Component {
       selectedNumbers: [],
       answerIsCorrect: null,
       randomNumberOfStars: Game.randomNumber(),
-    }), () => this.updateDoneStatus);
+    }), this.updateDoneStatus);
   };
   
   redraw = () => {
@@ -156,7 +158,7 @@ class Game extends React.Component {
         answerIsCorrect: null,
         selectedNumbers: [],
         redraws: prevState.redraws -1,
-    }), () => this.updateDoneStatus);
+    }), this.updateDoneStatus);
   };
   
   possibleSolutions = ({randomNumberOfStars, usedNumbers}) => {
